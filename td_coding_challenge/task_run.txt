@@ -1,0 +1,594 @@
+kakumanu-macOS:td_coding_challenge kakumanu$ digdag run td_mysql.dig --rerun -o task
+2021-09-20 14:55:56 -0700: Digdag v0.10.2
+2021-09-20 14:55:57 -0700 [WARN] (main): Using a new session time 2021-09-20T00:00:00+00:00.
+2021-09-20 14:55:57 -0700 [INFO] (main): Using session /Users/kakumanu/td_coding_challenge/task/20210920T000000+0000.
+2021-09-20 14:55:57 -0700 [INFO] (main): Starting a new session project id=1 workflow name=td_mysql session_time=2021-09-20T00:00:00+00:00
+2021-09-20 14:55:57 -0700 [INFO] (0027@[0:default]+td_mysql+embulk_prepare+pageviews_seed): sh>: embulk guess ./embulk/pageviews_seed.yml -o ./embulk/pageviews_config.yml
+2021-09-20 14:55:57 -0700 [INFO] (0026@[0:default]+td_mysql+embulk_prepare+customers_seed): sh>: embulk guess ./embulk/customers_seed.yml -o ./embulk/customers_config.yml
+2021-09-20 14:55:58.195 -0700: Embulk v0.9.23
+2021-09-20 14:55:58.197 -0700: Embulk v0.9.23
+2021-09-20 14:55:58.789 -0700 [WARN] (main): DEPRECATION: JRuby org.jruby.embed.ScriptingContainer is directly injected.
+2021-09-20 14:55:58.792 -0700 [WARN] (main): DEPRECATION: JRuby org.jruby.embed.ScriptingContainer is directly injected.
+2021-09-20 14:56:00.193 -0700 [INFO] (main): Gem's home and path are set by default: "/Users/kakumanu/.embulk/lib/gems"
+2021-09-20 14:56:00.236 -0700 [INFO] (main): Gem's home and path are set by default: "/Users/kakumanu/.embulk/lib/gems"
+2021-09-20 14:56:00.572 -0700 [INFO] (main): Started Embulk v0.9.23
+2021-09-20 14:56:00.616 -0700 [INFO] (main): Started Embulk v0.9.23
+2021-09-20 14:56:00.625 -0700 [INFO] (0001:guess): Listing local files at directory './data/customers' filtering filename by prefix ''
+2021-09-20 14:56:00.625 -0700 [INFO] (0001:guess): "follow_symlinks" is set false. Note that symbolic links to directories are skipped.
+2021-09-20 14:56:00.627 -0700 [INFO] (0001:guess): Loading files [./data/customers/customers_1.csv, ./data/customers/customers_2.csv]
+2021-09-20 14:56:00.633 -0700 [INFO] (0001:guess): Try to read 32,768 bytes from input source
+2021-09-20 14:56:00.671 -0700 [INFO] (0001:guess): Listing local files at directory './data/pageviews' filtering filename by prefix ''
+2021-09-20 14:56:00.672 -0700 [INFO] (0001:guess): "follow_symlinks" is set false. Note that symbolic links to directories are skipped.
+2021-09-20 14:56:00.673 -0700 [INFO] (0001:guess): Loading files [./data/pageviews/pageviews_2.csv, ./data/pageviews/pageviews_1.csv]
+2021-09-20 14:56:00.676 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.679 -0700 [INFO] (0001:guess): Try to read 32,768 bytes from input source
+2021-09-20 14:56:00.688 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.701 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.709 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.724 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.737 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.750 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+2021-09-20 14:56:00.757 -0700 [INFO] (0001:guess): Loaded plugin embulk (0.9.23)
+in:
+  type: file
+  path_prefix: ./data/customers/
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    type: csv
+    delimiter: ','
+    'quote:': '"'
+    escape: null
+    null_string: 'NULL'
+    skip_header_lines: 1
+    columns:
+    - {name: user_id, type: string}
+    - {name: first_name, type: string}
+    - {name: last_name, type: string}
+    - {name: job_title, type: string}
+    quote: '"'
+    trim_if_not_quoted: false
+    allow_extra_columns: false
+    allow_optional_columns: false
+out: {type: mysql, host: localhost, user: root, password: mysql, database: td_coding_challenge,
+  table: customers_tmp, mode: insert}
+
+Created './embulk/customers_config.yml' file.
+in:
+  type: file
+  path_prefix: ./data/pageviews/
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    type: csv
+    delimiter: ','
+    'quote:': '"'
+    escape: null
+    null_string: 'NULL'
+    skip_header_lines: 1
+    columns:
+    - {name: user_id, type: string}
+    - {name: url, type: string}
+    - {name: user_agent, type: string}
+    - {name: timestamp, type: long, format: varchar}
+    quote: '"'
+    trim_if_not_quoted: false
+    allow_extra_columns: false
+    allow_optional_columns: false
+out: {type: mysql, host: localhost, user: root, password: mysql, database: td_coding_challenge,
+  table: pageviews_tmp, mode: insert}
+
+Created './embulk/pageviews_config.yml' file.
+2021-09-20 14:56:01 -0700 [INFO] (0027@[0:default]+td_mysql+create_tables_mysql+create_customers_and_pageviews): sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_tables.sql
+Enter password:
+2021-09-20 14:56:04 -0700 [INFO] (0027@[0:default]+td_mysql+data_ingestion+customers_insert): sh>: embulk run ./embulk/customers_config.yml
+2021-09-20 14:56:04 -0700 [INFO] (0026@[0:default]+td_mysql+data_ingestion+pageviews_insert): sh>: embulk run ./embulk/pageviews_config.yml
+2021-09-20 14:56:05.161 -0700: Embulk v0.9.23
+2021-09-20 14:56:05.162 -0700: Embulk v0.9.23
+2021-09-20 14:56:05.942 -0700 [WARN] (main): DEPRECATION: JRuby org.jruby.embed.ScriptingContainer is directly injected.
+2021-09-20 14:56:05.947 -0700 [WARN] (main): DEPRECATION: JRuby org.jruby.embed.ScriptingContainer is directly injected.
+2021-09-20 14:56:07.912 -0700 [INFO] (main): Gem's home and path are set by default: "/Users/kakumanu/.embulk/lib/gems"
+2021-09-20 14:56:07.960 -0700 [INFO] (main): Gem's home and path are set by default: "/Users/kakumanu/.embulk/lib/gems"
+2021-09-20 14:56:08.673 -0700 [INFO] (main): Started Embulk v0.9.23
+2021-09-20 14:56:08.711 -0700 [INFO] (main): Started Embulk v0.9.23
+2021-09-20 14:56:08.764 -0700 [INFO] (0001:transaction): Loaded plugin embulk-output-mysql (0.10.1)
+2021-09-20 14:56:08.808 -0700 [INFO] (0001:transaction): Loaded plugin embulk-output-mysql (0.10.1)
+2021-09-20 14:56:08.816 -0700 [INFO] (0001:transaction): Listing local files at directory './data/pageviews' filtering filename by prefix ''
+2021-09-20 14:56:08.817 -0700 [INFO] (0001:transaction): "follow_symlinks" is set false. Note that symbolic links to directories are skipped.
+2021-09-20 14:56:08.818 -0700 [INFO] (0001:transaction): Loading files [./data/pageviews/pageviews_2.csv, ./data/pageviews/pageviews_1.csv]
+2021-09-20 14:56:08.854 -0700 [INFO] (0001:transaction): Using local thread executor with max_threads=32 / output tasks 16 = input tasks 2 * 8
+2021-09-20 14:56:08.859 -0700 [INFO] (0001:transaction): Listing local files at directory './data/customers' filtering filename by prefix ''
+2021-09-20 14:56:08.861 -0700 [INFO] (0001:transaction): "follow_symlinks" is set false. Note that symbolic links to directories are skipped.
+2021-09-20 14:56:08.862 -0700 [INFO] (0001:transaction): Loading files [./data/customers/customers_1.csv, ./data/customers/customers_2.csv]
+2021-09-20 14:56:08.875 -0700 [WARN] (0001:transaction): "UTC" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:08.890 -0700 [INFO] (0001:transaction): JDBC Driver = /Users/kakumanu/.embulk/lib/gems/gems/embulk-output-mysql-0.10.1-java/default_jdbc_driver/mysql-connector-java-5.1.44.jar
+2021-09-20 14:56:08.900 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:08.908 -0700 [INFO] (0001:transaction): Using local thread executor with max_threads=32 / output tasks 16 = input tasks 2 * 8
+2021-09-20 14:56:08.938 -0700 [WARN] (0001:transaction): "UTC" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:08.946 -0700 [INFO] (0001:transaction): JDBC Driver = /Users/kakumanu/.embulk/lib/gems/gems/embulk-output-mysql-0.10.1-java/default_jdbc_driver/mysql-connector-java-5.1.44.jar
+2021-09-20 14:56:08.955 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:09.138 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:09.138 -0700 [INFO] (0001:transaction): Using JDBC Driver mysql-connector-java-5.1.44 ( Revision: b3cda4f864902ffdde495b9df93937c3e20009be )
+2021-09-20 14:56:09.138 -0700 [WARN] (0001:transaction): This plugin will update MySQL Connector/J version in the near future release.
+2021-09-20 14:56:09.138 -0700 [WARN] (0001:transaction): It has some incompatibility changes.
+2021-09-20 14:56:09.138 -0700 [WARN] (0001:transaction): For example, the 5.1.35 introduced `noTimezoneConversionForDateType` and `cacheDefaultTimezone` options.
+2021-09-20 14:56:09.138 -0700 [WARN] (0001:transaction): Please read a document and make sure configuration carefully before updating the plugin.
+2021-09-20 14:56:09.139 -0700 [WARN] (0001:transaction): The plugin will set `useLegacyDatetimeCode=false` by default in future.
+2021-09-20 14:56:09.139 -0700 [INFO] (0001:transaction): Using insert mode
+2021-09-20 14:56:09.155 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk000` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.173 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:09.173 -0700 [INFO] (0001:transaction): Using JDBC Driver mysql-connector-java-5.1.44 ( Revision: b3cda4f864902ffdde495b9df93937c3e20009be )
+2021-09-20 14:56:09.173 -0700 [WARN] (0001:transaction): This plugin will update MySQL Connector/J version in the near future release.
+2021-09-20 14:56:09.173 -0700 [WARN] (0001:transaction): It has some incompatibility changes.
+2021-09-20 14:56:09.173 -0700 [WARN] (0001:transaction): For example, the 5.1.35 introduced `noTimezoneConversionForDateType` and `cacheDefaultTimezone` options.
+2021-09-20 14:56:09.173 -0700 [WARN] (0001:transaction): Please read a document and make sure configuration carefully before updating the plugin.
+2021-09-20 14:56:09.174 -0700 [WARN] (0001:transaction): The plugin will set `useLegacyDatetimeCode=false` by default in future.
+2021-09-20 14:56:09.174 -0700 [INFO] (0001:transaction): Using insert mode
+2021-09-20 14:56:09.180 -0700 [INFO] (0001:transaction): > 0.02 seconds
+2021-09-20 14:56:09.180 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk001` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.205 -0700 [INFO] (0001:transaction): > 0.03 seconds
+2021-09-20 14:56:09.206 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk002` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.214 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk000` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.254 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.254 -0700 [INFO] (0001:transaction): > 0.04 seconds
+2021-09-20 14:56:09.254 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk003` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.254 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk001` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.300 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.301 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk004` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.302 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.303 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk002` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.349 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.349 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk003` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.349 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.350 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk005` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.417 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.418 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk004` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.420 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.420 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk006` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.464 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.465 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk005` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.488 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.488 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk007` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.490 -0700 [INFO] (0001:transaction): > 0.03 seconds
+2021-09-20 14:56:09.490 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk006` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.534 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.535 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk008` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.537 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.537 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk007` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.583 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.583 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk009` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.585 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.586 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk008` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.638 -0700 [INFO] (0001:transaction): > 0.06 seconds
+2021-09-20 14:56:09.638 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk010` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.640 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.641 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk009` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.703 -0700 [INFO] (0001:transaction): > 0.06 seconds
+2021-09-20 14:56:09.704 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.704 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk010` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.704 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk011` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.752 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.753 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk011` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.776 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.776 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk012` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.778 -0700 [INFO] (0001:transaction): > 0.03 seconds
+2021-09-20 14:56:09.778 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk012` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.841 -0700 [INFO] (0001:transaction): > 0.06 seconds
+2021-09-20 14:56:09.841 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk013` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.841 -0700 [INFO] (0001:transaction): > 0.07 seconds
+2021-09-20 14:56:09.842 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk013` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.888 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.889 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk014` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.891 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.892 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk014` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.936 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.936 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `customers_tmp_0000017c0535917d_embulk015` (`user_id` VARCHAR(100), `first_name` VARCHAR(100), `last_name` VARCHAR(100), `job_title` VARCHAR(100))
+2021-09-20 14:56:09.938 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.938 -0700 [INFO] (0001:transaction): SQL: CREATE TABLE `pageviews_tmp_0000017c05359142_embulk015` (`user_id` VARCHAR(100), `url` VARCHAR(256), `user_agent` VARCHAR(256), `timestamp` VARCHAR(100))
+2021-09-20 14:56:09.983 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:09.984 -0700 [INFO] (0001:transaction): > 0.05 seconds
+2021-09-20 14:56:10.014 -0700 [INFO] (0001:transaction): {done:  0 / 2, running: 0}
+2021-09-20 14:56:10.014 -0700 [INFO] (0001:transaction): {done:  0 / 2, running: 0}
+2021-09-20 14:56:10.027 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.027 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.027 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.027 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.028 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.028 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.028 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.028 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.049 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.049 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.051 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.051 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.059 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.059 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.060 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk008` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.060 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk000` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.061 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.061 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.061 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk000` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.061 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk008` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.072 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.072 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.072 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.072 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.073 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.073 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.073 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.073 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.074 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.074 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.076 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.076 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.085 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.085 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.085 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.085 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk009` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.085 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk001` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.085 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.085 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk009` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.085 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk001` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.086 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.086 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.086 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.086 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.086 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.086 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.087 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.087 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.088 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.089 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.089 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.089 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.100 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.100 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk002` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.100 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.100 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk010` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.100 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.100 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.100 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk002` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.100 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk010` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.101 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.101 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.101 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.101 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.101 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.101 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.101 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.101 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.103 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.103 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.104 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.104 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.115 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.115 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.115 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.115 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.116 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk011` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.116 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk003` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.116 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk003` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.116 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk011` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.117 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.117 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.117 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.117 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.117 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.117 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.117 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.117 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.119 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.119 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.119 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.119 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.129 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.129 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.129 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.129 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk004` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.129 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.129 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk012` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.129 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk004` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.129 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk012` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.130 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.130 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.130 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.130 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.130 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.130 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.130 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.131 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.132 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.132 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.132 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.132 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.141 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.142 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk013` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.141 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.142 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk013` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.142 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.142 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk005` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.142 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.142 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk005` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.142 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.142 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.142 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.142 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.143 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.143 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.143 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.143 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.144 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.144 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.144 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.144 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.154 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.154 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.154 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.154 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk014` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.154 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.154 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk006` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.154 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk014` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.154 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk006` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.155 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.155 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.155 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.155 -0700 [WARN] (0024:task-0000): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.155 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.155 -0700 [WARN] (0025:task-0001): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.155 -0700 [WARN] (0024:task-0000): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.155 -0700 [WARN] (0025:task-0001): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.157 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.157 -0700 [INFO] (0024:task-0000): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.157 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.157 -0700 [INFO] (0025:task-0001): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.167 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.167 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.168 -0700 [INFO] (0024:task-0000): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.168 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk007` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.168 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `pageviews_tmp_0000017c05359142_embulk015` (`user_id`, `url`, `user_agent`, `timestamp`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.167 -0700 [INFO] (0025:task-0001): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.168 -0700 [INFO] (0024:task-0000): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk007` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.168 -0700 [INFO] (0025:task-0001): Prepared SQL: INSERT INTO `customers_tmp_0000017c0535917d_embulk015` (`user_id`, `first_name`, `last_name`, `job_title`) VALUES (?, ?, ?, ?)
+2021-09-20 14:56:10.242 -0700 [INFO] (0025:task-0001): Loading 50 rows
+2021-09-20 14:56:10.242 -0700 [INFO] (0024:task-0000): Loading 49 rows
+2021-09-20 14:56:10.248 -0700 [INFO] (0025:task-0001): > 0.01 seconds (loaded 50 rows in total)
+2021-09-20 14:56:10.248 -0700 [INFO] (0024:task-0000): > 0.01 seconds (loaded 49 rows in total)
+2021-09-20 14:56:10.253 -0700 [INFO] (0001:transaction): {done:  2 / 2, running: 0}
+2021-09-20 14:56:10.253 -0700 [INFO] (0001:transaction): {done:  2 / 2, running: 0}
+2021-09-20 14:56:10.254 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=2700000}
+2021-09-20 14:56:10.262 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.263 -0700 [INFO] (0001:transaction): SQL: INSERT INTO `customers_tmp` (`user_id`, `first_name`, `last_name`, `job_title`) SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk000` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk001` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk002` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk003` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk004` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk005` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk006` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk007` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk008` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk009` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk010` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk011` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk012` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk013` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk014` UNION ALL SELECT `user_id`, `first_name`, `last_name`, `job_title` FROM `customers_tmp_0000017c0535917d_embulk015`
+2021-09-20 14:56:10.263 -0700 [INFO] (0025:task-0001): Loading 78 rows
+2021-09-20 14:56:10.263 -0700 [INFO] (0024:task-0000): Loading 77 rows
+2021-09-20 14:56:10.268 -0700 [INFO] (0025:task-0001): > 0.01 seconds (loaded 78 rows in total)
+2021-09-20 14:56:10.268 -0700 [INFO] (0024:task-0000): > 0.01 seconds (loaded 77 rows in total)
+2021-09-20 14:56:10.269 -0700 [INFO] (0024:task-0000): Loading 78 rows
+2021-09-20 14:56:10.269 -0700 [INFO] (0025:task-0001): Loading 78 rows
+2021-09-20 14:56:10.271 -0700 [INFO] (0001:transaction): > 0.01 seconds (99 rows)
+2021-09-20 14:56:10.273 -0700 [INFO] (0025:task-0001): > 0.00 seconds (loaded 78 rows in total)
+2021-09-20 14:56:10.273 -0700 [INFO] (0024:task-0000): > 0.00 seconds (loaded 78 rows in total)
+2021-09-20 14:56:10.273 -0700 [INFO] (0025:task-0001): Loading 77 rows
+2021-09-20 14:56:10.273 -0700 [INFO] (0024:task-0000): Loading 77 rows
+2021-09-20 14:56:10.277 -0700 [INFO] (0025:task-0001): > 0.00 seconds (loaded 77 rows in total)
+2021-09-20 14:56:10.277 -0700 [INFO] (0025:task-0001): Loading 78 rows
+2021-09-20 14:56:10.278 -0700 [INFO] (0024:task-0000): > 0.01 seconds (loaded 77 rows in total)
+2021-09-20 14:56:10.278 -0700 [INFO] (0024:task-0000): Loading 77 rows
+2021-09-20 14:56:10.278 -0700 [WARN] (0001:transaction): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.278 -0700 [WARN] (0001:transaction): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.281 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.282 -0700 [INFO] (0025:task-0001): > 0.01 seconds (loaded 78 rows in total)
+2021-09-20 14:56:10.282 -0700 [INFO] (0024:task-0000): > 0.00 seconds (loaded 77 rows in total)
+2021-09-20 14:56:10.282 -0700 [INFO] (0025:task-0001): Loading 78 rows
+2021-09-20 14:56:10.282 -0700 [INFO] (0024:task-0000): Loading 80 rows
+2021-09-20 14:56:10.287 -0700 [INFO] (0024:task-0000): > 0.00 seconds (loaded 80 rows in total)
+2021-09-20 14:56:10.287 -0700 [INFO] (0025:task-0001): > 0.00 seconds (loaded 78 rows in total)
+2021-09-20 14:56:10.287 -0700 [INFO] (0024:task-0000): Loading 77 rows
+2021-09-20 14:56:10.287 -0700 [INFO] (0025:task-0001): Loading 79 rows
+2021-09-20 14:56:10.288 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.288 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk000`
+2021-09-20 14:56:10.290 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.291 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk001`
+2021-09-20 14:56:10.292 -0700 [INFO] (0024:task-0000): > 0.00 seconds (loaded 77 rows in total)
+2021-09-20 14:56:10.292 -0700 [INFO] (0024:task-0000): Loading 35 rows
+2021-09-20 14:56:10.293 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.293 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk002`
+2021-09-20 14:56:10.295 -0700 [INFO] (0024:task-0000): > 0.00 seconds (loaded 35 rows in total)
+2021-09-20 14:56:10.297 -0700 [INFO] (0025:task-0001): > 0.01 seconds (loaded 79 rows in total)
+2021-09-20 14:56:10.297 -0700 [INFO] (0025:task-0001): Loading 31 rows
+2021-09-20 14:56:10.297 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.297 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk003`
+2021-09-20 14:56:10.298 -0700 [INFO] (0001:transaction): {done:  1 / 2, running: 1}
+2021-09-20 14:56:10.300 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.300 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk004`
+2021-09-20 14:56:10.300 -0700 [INFO] (0025:task-0001): > 0.00 seconds (loaded 31 rows in total)
+2021-09-20 14:56:10.302 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.302 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk005`
+2021-09-20 14:56:10.303 -0700 [INFO] (0001:transaction): {done:  2 / 2, running: 0}
+2021-09-20 14:56:10.304 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=2700000}
+2021-09-20 14:56:10.305 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.305 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk006`
+2021-09-20 14:56:10.307 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.308 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk007`
+2021-09-20 14:56:10.310 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.311 -0700 [INFO] (0001:transaction): SQL: INSERT INTO `pageviews_tmp` (`user_id`, `url`, `user_agent`, `timestamp`) SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk000` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk001` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk002` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk003` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk004` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk005` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk006` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk007` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk008` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk009` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk010` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk011` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk012` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk013` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk014` UNION ALL SELECT `user_id`, `url`, `user_agent`, `timestamp` FROM `pageviews_tmp_0000017c05359142_embulk015`
+2021-09-20 14:56:10.311 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.311 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk008`
+2021-09-20 14:56:10.314 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.314 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk009`
+2021-09-20 14:56:10.316 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.316 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk010`
+2021-09-20 14:56:10.319 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.319 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk011`
+2021-09-20 14:56:10.321 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.321 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk012`
+2021-09-20 14:56:10.323 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.323 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk013`
+2021-09-20 14:56:10.325 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.325 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk014`
+2021-09-20 14:56:10.336 -0700 [INFO] (0001:transaction): > 0.01 seconds
+2021-09-20 14:56:10.336 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `customers_tmp_0000017c0535917d_embulk015`
+2021-09-20 14:56:10.338 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.339 -0700 [INFO] (main): Committed.
+2021-09-20 14:56:10.339 -0700 [INFO] (main): Next config diff: {"in":{"last_path":"./data/customers/customers_2.csv"},"out":{}}
+2021-09-20 14:56:10.341 -0700 [INFO] (0001:transaction): > 0.03 seconds (1,000 rows)
+2021-09-20 14:56:10.347 -0700 [WARN] (0001:transaction): Z is deprecated as a military time zone name. Use UTC instead.
+2021-09-20 14:56:10.347 -0700 [WARN] (0001:transaction): "Z" is recognized as "Z" to be compatible with the legacy style.
+2021-09-20 14:56:10.349 -0700 [INFO] (0001:transaction): Connecting to jdbc:mysql://localhost:3306/td_coding_challenge options {user=root, password=***, tcpKeepAlive=true, useSSL=false, useCompression=true, rewriteBatchedStatements=true, connectTimeout=300000, socketTimeout=1800000}
+2021-09-20 14:56:10.354 -0700 [INFO] (0001:transaction): TransactionIsolation=repeatable_read
+2021-09-20 14:56:10.354 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk000`
+2021-09-20 14:56:10.373 -0700 [INFO] (0001:transaction): > 0.02 seconds
+2021-09-20 14:56:10.373 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk001`
+2021-09-20 14:56:10.375 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.375 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk002`
+2021-09-20 14:56:10.378 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.378 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk003`
+2021-09-20 14:56:10.380 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.380 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk004`
+2021-09-20 14:56:10.382 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.382 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk005`
+2021-09-20 14:56:10.384 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.384 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk006`
+2021-09-20 14:56:10.386 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.386 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk007`
+2021-09-20 14:56:10.388 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.388 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk008`
+2021-09-20 14:56:10.390 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.390 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk009`
+2021-09-20 14:56:10.392 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.392 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk010`
+2021-09-20 14:56:10.394 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.394 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk011`
+2021-09-20 14:56:10.396 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.396 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk012`
+2021-09-20 14:56:10.398 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.398 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk013`
+2021-09-20 14:56:10.400 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.400 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk014`
+2021-09-20 14:56:10.402 -0700 [INFO] (0001:transaction): > 0.00 seconds
+2021-09-20 14:56:10.402 -0700 [INFO] (0001:transaction): SQL: DROP TABLE IF EXISTS `pageviews_tmp_0000017c05359142_embulk015`
+2021-09-20 14:56:10.410 -0700 [INFO] (0001:transaction): > 0.01 seconds
+2021-09-20 14:56:10.411 -0700 [INFO] (main): Committed.
+2021-09-20 14:56:10.411 -0700 [INFO] (main): Next config diff: {"in":{"last_path":"./data/pageviews/pageviews_2.csv"},"out":{}}
+2021-09-20 14:56:10 -0700 [INFO] (0026@[0:default]+td_mysql+data_preperation+create_customers): sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_customers.sql
+Enter password:
+2021-09-20 14:56:14 -0700 [INFO] (0026@[0:default]+td_mysql+data_preperation+create_pageviews): sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_pageviews.sql
+Enter password:
+2021-09-20 14:56:17 -0700 [INFO] (0026@[0:default]+td_mysql+data_analysis+pageviews_count_query): sh>: mysql -h localhost -u root -p mysql < ./sql-files/pageviews_count.sql > ./sql-files/pageviews_count_result
+Enter password:
+2021-09-20 14:56:19 -0700 [INFO] (0026@[0:default]+td_mysql+data_analysis+top_user_ids_query): sh>: mysql -h localhost -u root -p mysql < ./sql-files/top_user_ids.sql > ./sql-files/top_user_ids_result
+Enter password:
+2021-09-20 14:56:21 -0700 [INFO] (0026@[0:default]+td_mysql+data_analysis+last_page_viewed_query): sh>: mysql -h localhost -u root -p mysql < ./sql-files/last_page_viewed.sql > ./sql-files/last_page_viewed_result
+Enter password:
+2021-09-20 14:56:24 -0700 [INFO] (0026@[0:default]+td_mysql+data_analysis+print_results): sh>: cat ./sql-files/pageviews_count_result; cat ./sql-files/top_user_ids_result; cat ./sql-files/last_page_viewed_result
+user_id	num_page_views
+00ac2c0d-3e38-4ed5-aa86-4d6dd2a7f9a9	4
+02108f79-dda6-4543-959a-03573e853831	4
+038c8d49-49b1-45c5-bb22-127cd1e9cc26	3
+06d9e3a1-29b1-440a-a55d-ae376d606a31	3
+095cf148-6437-4569-83ef-e271af7d906f	7
+0c4810f0-1ad3-4398-b1ce-4cb3fc554f3d	4
+10bc7cd2-aaba-4fc9-9b0e-3434f90a9ba7	10
+125e2822-ea07-4741-9c4c-d81e66c1e67d	4
+15bafaf5-007f-4c08-a3fb-fbff2d260e0e	5
+164992d4-44ff-41e8-b41c-2513524d1b0c	10
+19501c78-70f2-49c2-b612-855ee7b56991	4
+1aca29fc-d293-44fe-a6d5-67d12fd19de3	2
+1c4efcda-77b2-4233-beaf-8bd72ce76a23	10
+1d0a4668-5b8f-45fb-9ba3-8bf567e08ad8	6
+220a1dac-7453-4546-a4be-38e5d0e27fb8	4
+277d4f95-ff7b-48c9-a95c-af32964126d2	4
+28d74006-99b6-4d01-b22d-101618fa3b4c	8
+2c4c9544-c96d-44a1-8c70-5a039b5c38cb	4
+302674b9-b23a-48ac-89a7-5df2d846c4dd	6
+310795a4-d767-45cd-8113-d13274795187	5
+32cc1219-d98b-4b73-a6bf-aba259cfcc93	10
+33916695-3075-4eab-8941-cd9d7cb49add	5
+35064ff2-d03f-4224-88af-df57f02ceb88	3
+35279bf5-b7e4-4119-b2d6-30a6bfff6c8f	4
+3ecd5916-dcd9-4762-b1dc-313f87b6310e	6
+428b5e37-9572-49fc-b0f5-e8ae8bddb4dc	7
+429e2f74-0941-4e4f-b739-f9dcadc774ba	3
+42d9cc29-c674-41a3-9a26-f0ee377f5e74	8
+4470d34f-bbeb-4bee-9ba7-1a8966466797	3
+45844f59-f67b-46a4-8f78-54a033e51c88	5
+4a91de08-4ba6-495a-a22f-bba581331e65	10
+4ca57847-7354-4292-ba37-77161b23c1d5	5
+4d08dee1-8168-43b1-8232-60d763703865	7
+4ffcb9eb-aa23-471d-bf7a-fb14258ec295	5
+51d0bd77-4aa8-46e0-a1b2-25da2c0b2701	6
+53ea8b4b-5b87-4bf4-bc29-ef393cbf6f82	4
+548ea0b6-7fa4-4aa1-bacc-7e8134814bcd	7
+5794a0d9-70c9-4437-826d-058679720471	4
+59b7ba6f-126b-4bb5-98a8-9659bbf95b26	5
+5d9b8515-823e-49b8-ad44-5c91ef23462f	8
+5f0c7db0-d67e-483a-9a67-0cbd0cb4024c	3
+6813d0f8-72c3-40a4-8f2c-e8a1590a1ee7	3
+6acd9ea7-f2e9-47a3-92f4-03de58e63330	10
+6cf36c9e-1fa7-491d-a6e1-9c785d68a3d0	4
+6d269935-7206-4282-bb0f-16b8ee42abbf	4
+70b020fb-6cc7-4151-b918-23b14ed492c0	5
+7207a613-cfc5-48b5-b68d-dd30d6e57baf	4
+752119fa-50dc-4011-8f13-23aa8d78eb18	4
+76a0c116-8c22-42fe-83b6-d3f043c55c55	4
+7877cec5-f8d9-452c-9a3c-a09caa8e2f30	5
+788c3107-c7a6-41d5-aa35-48886b024eed	8
+79103238-c33e-4cd1-98cb-6d0adce08df6	5
+7b11021c-4992-4a3c-98bd-004ca3330411	9
+8145ad96-0c7b-4bf4-b3df-e63ec168f58f	10
+825f4ede-0c7d-4d6b-a019-347da8412641	2
+830187a5-fefa-4d0e-a4a3-e99ef218e966	7
+84091e25-0594-4902-b958-7ef2d1885b18	5
+864acd0f-e89e-4478-8e14-d9654c2252ac	6
+8685f5a0-ea69-4bf4-b242-d65e7232d394	8
+8774f3d7-f0a7-4428-bf69-3d4150fc366e	10
+8a2b1d96-4c11-4257-9acb-8ad4703e7a91	6
+8ddfdaa0-1895-46c3-8f32-271e964ace03	5
+912a378d-3344-4f32-b880-c3710ae2e7e6	6
+99cab99c-9b36-4c2d-b46f-2a5ddd044448	4
+a57c86f9-44ac-41dd-a01a-0ad22897cd6c	10
+a7160bb1-214e-466e-8339-76bcd07f1ec4	8
+a7d42ac0-df42-429b-806e-ab99f0ab2a96	3
+ac51a078-f738-4c79-9b06-5e49c378b201	6
+ad649b3e-afad-4c97-aca2-d67bb9fbd443	7
+ae0e47d5-5a9b-48bf-a37a-ba5f6efb7e9c	3
+b0d5ac54-4ba4-4fbe-9fe8-680f58c0096f	4
+b2e69294-3330-4499-9468-4f15964450ae	6
+ba6d1a6e-01a2-438b-acf4-bb66b1b12c31	10
+c2904ee4-9aed-4a76-a35a-92a72cc3039d	6
+c336ca4c-9535-4e23-9ea8-5d007afd40ae	5
+c3935355-77a8-415f-87dc-40ec67a162b0	2
+c43eb5ab-fa64-4452-a152-9cf1473e47d2	2
+c4f2130a-8b28-4447-bcfa-d65b11a5c4e0	5
+cdf68afc-3f94-4488-8127-c26edcda133c	5
+ce1453d4-4a15-4e6b-b376-403d99c898ab	7
+d363cc20-f9be-41c3-be9f-804dc1e3f4ad	5
+d499e3c6-adc8-4b04-a6a7-4d6d591d852d	8
+dbfbf4d9-9bb7-4dc1-ab87-e532a94dadbf	3
+ddc8b966-61f9-4571-b3a8-93cfba279d8d	5
+e63a39af-22b8-4d6f-acda-6a4a9018db10	6
+e72b3c60-cc2b-49ef-aab6-c46fb779fec1	3
+e83c8ed9-2abd-4696-a767-2f26ea0cc2fc	10
+eb3cd42c-2814-4a68-ac43-e3d9f9278662	1
+eda02766-ac38-4918-adf1-24fb06f55f0d	6
+f17fc516-a78a-4591-b32e-00632b3f2a8d	5
+f441a6f6-375a-44eb-a85c-59ced5f13251	7
+f59b8058-f550-4936-a030-95f8117ac009	5
+f6801c72-afb7-4ca8-85fd-4a96a96b8715	5
+f884da88-5a6c-4d96-ba9f-34e615cb3c40	2
+f91c89a1-ce07-404e-89c1-11f60175e77f	6
+fa5ca302-03e8-49ae-a366-b23d32e5eedc	9
+fbcb24f6-55c7-4616-8e25-f308cc4f3d91	2
+fcdd4917-22f4-4225-991a-469791c41b6b	7
+fe906500-7342-48fa-9728-7c71d45223ae	6
+user_id
+428b5e37-9572-49fc-b0f5-e8ae8bddb4dc
+84091e25-0594-4902-b958-7ef2d1885b18
+70b020fb-6cc7-4151-b918-23b14ed492c0
+user_id	url
+788c3107-c7a6-41d5-aa35-48886b024eed	https://paginegialle.it/risus/semper/porta.html
+a7160bb1-214e-466e-8339-76bcd07f1ec4	https://ftc.gov/turpis/a/pede/posuere.html
+ddc8b966-61f9-4571-b3a8-93cfba279d8d	http://opensource.org/donec/semper/sapien/a/libero.json
+Success. Task state is saved at /Users/kakumanu/td_coding_challenge/task/20210920T000000+0000 directory.
+  * Use --session <daily | hourly | "yyyy-MM-dd[ HH:mm:ss]"> to not reuse the last session time.
+  * Use --rerun, --start +NAME, or --goal +NAME argument to rerun skipped tasks.
+kakumanu-macOS:td_coding_challenge kakumanu$

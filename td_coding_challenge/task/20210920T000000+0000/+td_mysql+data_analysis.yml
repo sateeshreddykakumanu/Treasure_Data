@@ -1,0 +1,10 @@
+fullName: "+td_mysql+data_analysis"
+state: "success"
+result:
+  subtaskConfig: {}
+  exportParams: {}
+  resetStoreParams: []
+  storeParams: {}
+  report:
+    inputs: []
+    outputs: []

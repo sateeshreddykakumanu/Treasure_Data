@@ -1,0 +1,10 @@
+fullName: "+td_mysql+create_tables_mysql+create_customers_and_pageviews"
+state: "success"
+result:
+  subtaskConfig: {}
+  exportParams: {}
+  resetStoreParams: []
+  storeParams: {}
+  report:
+    inputs: []
+    outputs: []

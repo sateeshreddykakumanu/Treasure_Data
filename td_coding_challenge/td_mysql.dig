@@ -1,0 +1,57 @@
+timezone: UTC
+_export:
+  host: localhost
+  port: 3306
+  user: root
+  password: mysql
+  database: td_coding_challenge
+  strict_transaction: false
+
++embulk_prepare:
+  _parallel: true
+
+  +customers_seed:
+    sh>: embulk guess ./embulk/customers_seed.yml -o ./embulk/customers_config.yml
+
+  +pageviews_seed:
+    sh>: embulk guess ./embulk/pageviews_seed.yml -o ./embulk/pageviews_config.yml
+
+
++create_tables_mysql:
+
+  +create_customers_and_pageviews:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_tables.sql
+
++data_ingestion:
+  _parallel: true
+  
+  +customers_insert:
+    sh>: embulk run ./embulk/customers_config.yml
+  
+  +pageviews_insert:
+    sh>: embulk run ./embulk/pageviews_config.yml
+
++data_preperation:
+  
+  +create_customers:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_customers.sql
+
+  +create_pageviews:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/create_pageviews.sql
+
++data_analysis:
+
+  +pageviews_count_query:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/pageviews_count.sql > ./sql-files/pageviews_count_result
+
+  +top_user_ids_query:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/top_user_ids.sql > ./sql-files/top_user_ids_result
+
+  +last_page_viewed_query:
+    sh>: mysql -h localhost -u root -p mysql < ./sql-files/last_page_viewed.sql > ./sql-files/last_page_viewed_result
+
+  +print_results:
+    sh>: cat ./sql-files/pageviews_count_result; cat ./sql-files/top_user_ids_result; cat ./sql-files/last_page_viewed_result
+
+_error:
+  echo>: "workflow failed"

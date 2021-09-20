@@ -1,0 +1,10 @@
+fullName: "+td_mysql+embulk_prepare+customers_seed"
+state: "success"
+result:
+  subtaskConfig: {}
+  exportParams: {}
+  resetStoreParams: []
+  storeParams: {}
+  report:
+    inputs: []
+    outputs: []

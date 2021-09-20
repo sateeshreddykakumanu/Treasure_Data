@@ -1,0 +1,10 @@
+fullName: "+td_mysql+data_analysis+last_page_viewed_query"
+state: "success"
+result:
+  subtaskConfig: {}
+  exportParams: {}
+  resetStoreParams: []
+  storeParams: {}
+  report:
+    inputs: []
+    outputs: []
