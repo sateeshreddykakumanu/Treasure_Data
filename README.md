@@ -46,7 +46,6 @@ In a local environment:
 
 **last_page_viewed.sql** -> The last page viewed by each of these user_id’s -> Results echoed to last_page_viewed_result
 
-
 ### How to Run
 If it's a first time run:
 digdag run td_mysql.dig
