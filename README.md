@@ -20,8 +20,6 @@ pageviews
     customers_seed.yml
     pageviews_config.yml
     pageviews_seed.yml
-## sql-files
-**create_tables.sql** -> Creates customers_tmp and pageviews_tmp tables
 
 #Prerequisites
 In a local environment:
@@ -31,7 +29,7 @@ In a local environment:
 
 #Folder Structure
 td_coding_challenge
-##data
+## data
 customers
     customers_1.csv
     customers_2.csv
