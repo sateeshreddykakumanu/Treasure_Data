@@ -52,8 +52,8 @@ pageviews
   2. Parses the “user_agent” column to add a new column called ‘operating_system’ that contains one
      of the following values ("Windows", "Macintosh", "Linux", or "Other"). This column represents the operating system of the customer's desktop/laptop/tablet/mobile.
 
-**create_pageviews.sql ** 
-  Create a new table called `pageviews`
+**create_pageviews.sql**
+  Create a new table called `pageviews` that:
   1. Includes all columns from pageviews_tmp
   2. Excludes all records where job_title contains “Sales”
 
@@ -64,7 +64,7 @@ pageviews
 **last_page_viewed.sql** -> The last page viewed by each of these user_id’s -> Results echoed to last_page_viewed_result
 
 
-###How to Run
+### How to Run
 If it's a first time run:
 digdag run td_mysql.dig
 
