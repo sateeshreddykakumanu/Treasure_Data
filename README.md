@@ -41,7 +41,7 @@ top_user_ids.sql -> The top 3 user_id’s (ranked by total pageviews) who have v
 last_page_viewed.sql -> The last page viewed by each of these user_id’s -> Results echoed to last_page_viewed_result
 
 
-###How to Run
+### How to Run
 If it's a first time run:
 digdag run td_mysql.dig
 
