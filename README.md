@@ -5,8 +5,7 @@ In a local environment:
 2. Install Embulk
 3. Create a local MySQL database called “td_coding_challenge”
 
-# Folder Structure
-td_coding_challenge
+# td_coding_challenge
 
 ## data
 customers
@@ -21,7 +20,7 @@ pageviews
     pageviews_config.yml
     pageviews_seed.yml
 
-#Prerequisites
+## Prerequisites
 In a local environment:
 1. Install Digdag
 2. Install Embulk
