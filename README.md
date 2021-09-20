@@ -5,16 +5,17 @@ In a local environment:
 2. Install Embulk
 3. Create a local MySQL database called “td_coding_challenge”
 
-#Folder Structure
+# Folder Structure
 td_coding_challenge
-##data
+
+## data
 customers
     customers_1.csv
     customers_2.csv
 pageviews
     pageviews_1.csv
     pageviews_2.csv
-##embulk
+## embulk
     customers_config.yml
     customers_seed.yml
     pageviews_config.yml
