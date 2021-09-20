@@ -27,20 +27,6 @@ In a local environment:
 2. Install Embulk
 3. Create a local MySQL database called “td_coding_challenge”
 
-#Folder Structure
-td_coding_challenge
-## data
-customers
-    customers_1.csv
-    customers_2.csv
-pageviews
-    pageviews_1.csv
-    pageviews_2.csv
-##embulk
-    customers_config.yml
-    customers_seed.yml
-    pageviews_config.yml
-    pageviews_seed.yml
 ## sql-files
 **create_tables.sql** -> Creates customers_tmp and pageviews_tmp tables
 
