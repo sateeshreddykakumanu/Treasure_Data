@@ -56,3 +56,5 @@ digdag run td_mysql.dig
 
 If it is not a first run:
 digdag run td_mysql.dig --rerun
+
+**task_run.txt** -> Text file containing the server logs of one end-to-end run of your digdag workflow
