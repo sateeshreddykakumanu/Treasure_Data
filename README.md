@@ -1,9 +1,10 @@
 # Treasure_Data
 #Prerequisites
 In a local environment:
-1. Install Digdag
-2. Install Embulk
-3. Create a local MySQL database called “td_coding_challenge”
+1. Installed Digdag
+2. Installed Embulk
+3. Installed MySQL output plugin `$ embulk gem install embulk-output-mysql`
+4. Created a local MySQL database called “td_coding_challenge”
 
 # td_coding_challenge
 
@@ -19,12 +20,6 @@ pageviews
     customers_seed.yml
     pageviews_config.yml
     pageviews_seed.yml
-
-**Prerequisites**
-In a local environment:
-1. Install Digdag
-2. Install Embulk
-3. Create a local MySQL database called “td_coding_challenge”
 
 ## sql-files
 **create_tables.sql** -> Creates customers_tmp and pageviews_tmp tables
@@ -57,4 +52,9 @@ digdag run td_mysql.dig
 If it is not a first run:
 digdag run td_mysql.dig --rerun
 
-**task_run.txt** -> Text file containing the server logs of one end-to-end run of your digdag workflow
+`MySQL user: root`
+`MySQL password: mysql`
+
+Also tried setting MySQL passqword using digdag secret, but wasn't successful
+
+**task_run.txt** -> Text file containing the server logs of one end-to-end run of digdag workflow
