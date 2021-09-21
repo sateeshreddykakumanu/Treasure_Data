@@ -24,6 +24,9 @@ pageviews
 ## sql-files
 **create_tables.sql** -> Creates customers_tmp and pageviews_tmp tables
 
+## task
+task directory in which the run state is stored
+
 **create_customers.sql** 
   Create a new table called `customers` that:
   1. Includes all columns from customers_tmp
@@ -47,10 +50,10 @@ pageviews
 **td_mysql.dig** -> digdag workflow to automate the creation of tables, Data Ingestion and Data Analysis
 
 If it's a first time run:
-digdag run td_mysql.dig
+digdag run td_mysql.dig 
 
 If it is not a first run:
-digdag run td_mysql.dig --rerun
+digdag run td_mysql.dig --rerun -o task
 
 `MySQL user: root`
 `MySQL password: mysql`
