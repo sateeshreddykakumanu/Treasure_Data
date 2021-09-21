@@ -49,8 +49,7 @@ In a local environment:
 
 
 ### How to Run
-**td_mysql.dig**
-digdag workflow above to automate the creation of tables, Data Ingestion and Data Analysis
+**td_mysql.dig** -> digdag workflow above to automate the creation of tables, Data Ingestion and Data Analysis
 
 If it's a first time run:
 digdag run td_mysql.dig
