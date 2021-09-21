@@ -20,7 +20,7 @@ pageviews
     pageviews_config.yml
     pageviews_seed.yml
 
-## Prerequisites
+**Prerequisites**
 In a local environment:
 1. Install Digdag
 2. Install Embulk
@@ -46,7 +46,12 @@ In a local environment:
 
 **last_page_viewed.sql** -> The last page viewed by each of these user_id’s -> Results echoed to last_page_viewed_result
 
+
+
 ### How to Run
+**td_mysql.dig**
+digdag workflow above to automate the creation of tables, Data Ingestion and Data Analysis
+
 If it's a first time run:
 digdag run td_mysql.dig
 
