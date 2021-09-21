@@ -9,11 +9,11 @@ In a local environment:
 
 ## data
 customers
-    customers_1.csv
-    customers_2.csv
+  customers_1.csv
+  customers_2.csv
 pageviews
-    pageviews_1.csv
-    pageviews_2.csv
+  pageviews_1.csv
+  pageviews_2.csv
 ## embulk
     customers_config.yml
     customers_seed.yml
